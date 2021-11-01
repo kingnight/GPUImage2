@@ -1,3 +1,7 @@
+为学习目的，添加了中文注释，和背景知识信息
+
+
+
 # GPUImage 2 #
 
 <div style="float: right"><img src="http://sunsetlakesoftware.com/sites/default/files/GPUImageLogo.png" /></div>

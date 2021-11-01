@@ -14,7 +14,7 @@ import COpenGLES.gles2
 import COpenGL
 #endif
 
-// TODO: Add mechanism to purge framebuffers on low memory
+// TODO: Add mechanism to purge弥补 framebuffers on low memory
 
 public class FramebufferCache {
     var framebufferCache = [Int64:[Framebuffer]]()

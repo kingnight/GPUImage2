@@ -27,7 +27,9 @@ public enum InputTextureStorageFormat {
 public struct InputTextureProperties {
     public let textureStorage:InputTextureStorageFormat
     public let texture:GLuint
-    
+    /*
+     纹理坐标和纹理vbo是二选一关系，但是纹理标识符是必要参数
+     */
     public init(textureCoordinates:[GLfloat]? = nil, textureVBO:GLuint? = nil, texture:GLuint) {
         self.texture = texture
         switch (textureCoordinates, textureVBO) {

@@ -114,16 +114,23 @@ public class TargetContainer:Sequence {
                 if (index >= self.targets.count) {
                     return nil
                 }
-                
+                //为什么不是if
                 while (self.targets[index].value == nil) {
                     self.targets.remove(at:index)
                     if (index >= self.targets.count) {
                         return nil
                     }
                 }
+                //因为要一次移除targets所有value为nil的，targets是数组，0如果为nil，移除后，原来的第一个元素就移动到位置0，如果是if，则会错过，下次判断的是index += 1的值
                 
                 index += 1
                 return (self.targets[index - 1].value!, self.targets[index - 1].indexAtTarget)
+                //返回值从index - 1开始，因为上一步index += 1，为了后续进行下一次遍历数组输出
+                //也可以换种方式：
+                //defer {
+                //   index += 1
+                //}
+                //return (self.targets[index].value!, self.targets[index].indexAtTarget)
            }
         }
     }

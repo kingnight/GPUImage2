@@ -14,7 +14,7 @@ public class PictureInput: ImageSource {
     public let targets = TargetContainer()
     var imageFramebuffer:Framebuffer!
     var hasProcessedImage:Bool = false
-
+//CGImage 专门处理bitmap，smoothlyScaleOutput平滑的比例输出
     public init(image:CGImage, smoothlyScaleOutput:Bool = false, orientation:ImageOrientation = .portrait) {
         // TODO: Dispatch this whole thing asynchronously to move image loading off main thread
         let widthOfImage = GLint(image.width)
@@ -26,7 +26,7 @@ public class PictureInput: ImageSource {
         var widthToUseForTexture = widthOfImage
         var heightToUseForTexture = heightOfImage
         var shouldRedrawUsingCoreGraphics = false
-        
+        //超出支持的最大纹理大小，需要进行裁剪
         // For now, deal with images larger than the maximum texture size by resizing to be within that limit
         let scaledImageSizeToFitOnGPU = GLSize(sharedImageProcessingContext.sizeThatFitsWithinATextureForSize(Size(width:Float(widthOfImage), height:Float(heightOfImage))))
         if ((scaledImageSizeToFitOnGPU.width != widthOfImage) && (scaledImageSizeToFitOnGPU.height != heightOfImage)) {
@@ -37,9 +37,12 @@ public class PictureInput: ImageSource {
         
         if (smoothlyScaleOutput) {
             // In order to use mipmaps, you need to provide power-of-two textures, so convert to the next largest power of two and stretch to fill
+            //为了使用mipmaps（反锯齿），你需要提供2的幂纹理，所以转换为2的下一个最大的幂，然后拉伸填充
+            
+            //log2（x）
             let powerClosestToWidth = ceil(log2(Float(widthToUseForTexture)))
             let powerClosestToHeight = ceil(log2(Float(heightToUseForTexture)))
-            
+            //2的多少次幂 2^x
             widthToUseForTexture = GLint(round(pow(2.0, powerClosestToWidth)))
             heightToUseForTexture = GLint(round(pow(2.0, powerClosestToHeight)))
             shouldRedrawUsingCoreGraphics = true

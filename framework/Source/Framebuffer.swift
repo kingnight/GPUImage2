@@ -206,7 +206,7 @@ func hashForFramebufferWithProperties(orientation:ImageOrientation, size:GLSize,
 
 // MARK: -
 // MARK: Framebuffer-related extensions
-
+//public let standardImageVertices:[GLfloat] = [-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0]
 extension Rotation {
     func textureCoordinates() -> [GLfloat] {
         switch self {
