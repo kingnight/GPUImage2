@@ -56,12 +56,21 @@ public class PictureInput: ImageSource {
             /* Check that the memory layout is compatible with GL, as we cannot use glPixelStore to
             * tell GL about the memory layout with GLES.
             */
+            
+            /*
+             bitsPerComponent 每个通道占用位数
+             bitsPerPixel 每个像素占用位数，相当于所有通道加起来的位数，也就是色彩深度
+             bytesPerRow 指定位图图像(或图像掩码)的每一行在内存中使用的字节数。
+             */
             if ((image.bytesPerRow != image.width * 4) || (image.bitsPerPixel != 32) || (image.bitsPerComponent != 8))
             {
                 shouldRedrawUsingCoreGraphics = true
             } else {
                 /* Check that the bitmap pixel format is compatible with GL */
                 let bitmapInfo = image.bitmapInfo
+                /*
+                 CGImageAlphaInfo，代表是否有透明通道，透明通道在前还是后面（ARGB 还是 RGBA），是否有浮点数（floatComponents），CGImageByteOrderInfo，代表字节顺序，采用大端还是小端，以及数据单位宽度，iOS 一般采用 32 位小端模式，一般用 orderDefault 就好。
+                 */
                 if (bitmapInfo.contains(.floatComponents)) {
                     /* We don't support float components for use directly in GL */
                     shouldRedrawUsingCoreGraphics = true
@@ -90,7 +99,8 @@ public class PictureInput: ImageSource {
         if (shouldRedrawUsingCoreGraphics) {
             // For resized or incompatible image: redraw
             imageData = UnsafeMutablePointer<GLubyte>.allocate(capacity:Int(widthToUseForTexture * heightToUseForTexture) * 4)
-
+            //宽度*高度*4，与4相乘是由于RGBA颜色空间，它由四个通道红色、绿色、蓝色和alpha组成
+            
             let genericRGBColorspace = CGColorSpaceCreateDeviceRGB()
             
             let imageContext = CGContext(data:imageData, width:Int(widthToUseForTexture), height:Int(heightToUseForTexture), bitsPerComponent:8, bytesPerRow:Int(widthToUseForTexture) * 4, space:genericRGBColorspace,  bitmapInfo:CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue)

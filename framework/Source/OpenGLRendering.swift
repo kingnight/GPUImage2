@@ -176,7 +176,7 @@ func textureUnitForIndex(_ index:Int) -> GLenum {
 
 public func generateTexture(minFilter:Int32, magFilter:Int32, wrapS:Int32, wrapT:Int32) -> GLuint {
     var texture:GLuint = 0
-    
+    //GL_TEXTURE1
     glActiveTexture(GLenum(GL_TEXTURE1))
     glGenTextures(1, &texture)
     glBindTexture(GLenum(GL_TEXTURE_2D), texture)

@@ -27,8 +27,8 @@ struct FramebufferCreationError:Error {
 }
 
 public enum FramebufferTimingStyle {
-    case stillImage
-    case videoFrame(timestamp:Timestamp)
+    case stillImage      //静态图
+    case videoFrame(timestamp:Timestamp) //视频帧
     
     func isTransient() -> Bool {
         switch self {
@@ -71,9 +71,9 @@ public class Framebuffer {
         self.internalFormat = internalFormat
         self.format = format
         self.type = type
-        
+        //hash作为后续FramebufferCache缓存Framebuffer的key
         self.hash = hashForFramebufferWithProperties(orientation:orientation, size:size, textureOnly:textureOnly, minFilter:minFilter, magFilter:magFilter, wrapS:wrapS, wrapT:wrapT, internalFormat:internalFormat, format:format, type:type, stencil:stencil)
-
+        //TextureInput有overriddenTexture
         if let newTexture = overriddenTexture {
             textureOverride = true
             texture = newTexture
