@@ -67,7 +67,7 @@ extension OpenGLContext {
     public func deviceSupportsFramebufferReads() -> Bool {
         return deviceSupportsExtension("GL_EXT_shader_framebuffer_fetch")
     }
-    
+    //GPUImage 当处理超过纹理限制的图像时候，会先做判断，压缩成最大纹理限制的图像
     public func sizeThatFitsWithinATextureForSize(_ size:Size) -> Size {
         let maxTextureSize = Float(self.maximumTextureSizeForThisDevice)
         if ( (size.width < maxTextureSize) && (size.height < maxTextureSize) ) {
@@ -75,7 +75,7 @@ extension OpenGLContext {
         }
         
         let adjustedSize:Size
-        if (size.width > size.height) {
+        if (size.width > size.height) {//如果宽大于高，宽度设置最大纹理宽度，高度按原图比例折算
             adjustedSize = Size(width:maxTextureSize, height:(maxTextureSize / size.width) * size.height)
         } else {
             adjustedSize = Size(width:(maxTextureSize / size.height) * size.width, height:maxTextureSize)

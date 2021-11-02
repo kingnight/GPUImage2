@@ -34,8 +34,11 @@ infix operator --> : AdditionPrecedence
 public extension ImageSource {
     func addTarget(_ target:ImageConsumer, atTargetIndex:UInt? = nil) {
         if let targetIndex = atTargetIndex {
+            //Consumer add source
             target.setSource(self, atIndex:targetIndex)
+            //targets属于ImageSource，即Source增加consumer并指定位置
             targets.append(target, indexAtTarget:targetIndex)
+            //
             transmitPreviousImage(to:target, atIndex:targetIndex)
         } else if let indexAtTarget = target.addSource(self) {
             targets.append(target, indexAtTarget:indexAtTarget)
