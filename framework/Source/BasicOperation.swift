@@ -59,7 +59,9 @@ open class BasicOperation: ImageProcessingOperation {
     }
     
     public init(vertexShader:String? = nil, fragmentShader:String, numberOfInputs:UInt = 1, operationName:String = #file) {
-        let compiledShader = crashOnShaderCompileFailure(operationName){try sharedImageProcessingContext.programForVertexShader(vertexShader ?? defaultVertexShaderForInputs(numberOfInputs), fragmentShader:fragmentShader)}
+        //crashOnShaderCompileFailure 两个参数，第二个参数是尾随闭包
+        let compiledShader = crashOnShaderCompileFailure(operationName){
+            try sharedImageProcessingContext.programForVertexShader(vertexShader ?? defaultVertexShaderForInputs(numberOfInputs), fragmentShader:fragmentShader)}
         self.maximumInputs = numberOfInputs
         self.shader = compiledShader
         usesAspectRatio = shader.uniformIndex("aspectRatio") != nil
