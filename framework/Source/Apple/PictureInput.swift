@@ -123,7 +123,7 @@ public class PictureInput: ImageSource {
             } catch {
                 fatalError("ERROR: Unable to initialize framebuffer of size (\(widthToUseForTexture), \(heightToUseForTexture)) with error: \(error)")
             }
-            
+            //绑定纹理
             glBindTexture(GLenum(GL_TEXTURE_2D), self.imageFramebuffer.texture)
             if (smoothlyScaleOutput) {
                 glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
@@ -166,7 +166,7 @@ public class PictureInput: ImageSource {
         if synchronously {
             sharedImageProcessingContext.runOperationSynchronously{
                 sharedImageProcessingContext.makeCurrentContext()
-                self.updateTargetsWithFramebuffer(self.imageFramebuffer)
+                self.updateTargetsWithFramebuffer(self.imageFramebuffer) //#2
                 self.hasProcessedImage = true
             }
         } else {
