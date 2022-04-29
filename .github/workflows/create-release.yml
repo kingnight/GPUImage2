@@ -3,7 +3,8 @@ name: Create Release
 # Create XCFramework when a version is tagged
 on:
   push:
-    tags:0.0.1
+    tags:
+      - v0.0.1
 
 jobs:
   create_release:
