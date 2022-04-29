@@ -12,7 +12,7 @@ jobs:
     runs-on: macos-latest
     steps:
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
 
       - name: swift-create-xcframework
         uses: unsignedapps/swift-create-xcframework@v2.1.0
