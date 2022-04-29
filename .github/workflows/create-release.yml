@@ -3,7 +3,7 @@ name: Create Release
 # Create XCFramework when a version is tagged
 on:
   push:
-    tags:
+    tags:0.0.1
 
 jobs:
   create_release:
@@ -11,7 +11,7 @@ jobs:
     runs-on: macos-latest
     steps:
 
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
 
       - name: swift-create-xcframework
         uses: unsignedapps/swift-create-xcframework@v2.1.0
