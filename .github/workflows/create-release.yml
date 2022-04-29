@@ -4,7 +4,7 @@ name: Create Release
 on:
   push:
     tags:
-      - v0.0.1
+      - 0.0.1
 
 jobs:
   create_release:
